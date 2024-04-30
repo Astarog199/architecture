@@ -5,16 +5,16 @@
     android:id="@+id/mobile_navigation"
     app:startDestination="@+id/navigation_products">
 
-<!--    <fragment-->
-<!--        android:id="@+id/navigation_products"-->
-<!--        android:name="ru.gb.android.marketsample.clean.features.products.presentation.ProductsFragment"-->
-<!--        android:label="@string/title_products"-->
-<!--        tools:layout="@layout/fragment_products" />-->
+    <fragment
+        android:id="@+id/navigation_products"
+        android:name="ru.gb.android.marketsample.clean.product.presentation.ProductsFragment"
+        android:label="@string/title_products"
+        tools:layout="@layout/fragment_products" />
 
-<!--    <fragment-->
-<!--        android:id="@+id/navigation_promo"-->
-<!--        android:name="ru.gb.android.marketsample.clean.features.promo.presentation.PromoFragment"-->
-<!--        android:label="@string/title_promo"-->
-<!--        tools:layout="@layout/fragment_promo" />-->
+    <fragment
+        android:id="@+id/navigation_promo"
+        android:name="ru.gb.android.marketsample.clean.promo.presentation.PromoFragment"
+        android:label="@string/title_promo"
+        tools:layout="@layout/fragment_promo" />
 
 </navigation>
