@@ -11,12 +11,16 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import ru.gb.android.marketsample.start.data.api.ProductApiService
-import ru.gb.android.marketsample.start.data.storage.ProductLocalDataSource
-import ru.gb.android.marketsample.start.data.repository.ProductRepository
-import ru.gb.android.marketsample.start.data.api.PromoApiService
-import ru.gb.android.marketsample.start.data.storage.PromoLocalDataSource
-import ru.gb.android.marketsample.start.data.repository.PromoRepository
+import ru.gb.android.marketsample.start.product.data.api.ProductApiService
+import ru.gb.android.marketsample.start.product.data.storage.ProductLocalDataSource
+import ru.gb.android.marketsample.start.product.data.repository.ProductRepository
+import ru.gb.android.marketsample.start.common.promo.data.api.PromoApiService
+import ru.gb.android.marketsample.start.common.promo.data.PromoLocalDataSource
+import ru.gb.android.marketsample.start.common.promo.data.PromoRepository
+import ru.gb.android.marketsample.start.product.data.storage.ProductRemoteDataSource
+import ru.gb.android.marketsample.start.common.promo.data.PromoRemoteDataSource
+import ru.gb.android.marketsample.start.product.presentation.ProductVOFactory
+import ru.gb.android.marketsample.start.promo.presentation.PromoVOMapper
 
 object ServiceLocator {
 
@@ -32,7 +36,17 @@ object ServiceLocator {
         return ProductsViewModelFactory(
             productRepository = provideProductRepository(),
             promoRepository = providePromoRepository(),
+            promoVOMapper = providePromoMapper(),
+            productVOFactory = provideProductVOFactory()
         )
+    }
+
+    private fun provideProductVOFactory(): ProductVOFactory {
+        return  ProductVOFactory()
+    }
+
+    private fun providePromoMapper(): PromoVOMapper {
+        return PromoVOMapper()
     }
 
     private fun providePromoRepository(): PromoRepository {
@@ -40,12 +54,18 @@ object ServiceLocator {
         return local ?: run {
             val newPromoRepository = PromoRepository(
                 promoLocalDataSource = providePromoLocalDataSource(),
-                promoApiService = providePromoApiService(),
+                promoRemoteDataSource = providePromoRemoteDataSource(),
                 coroutineDispatcher = provideIOCoroutineDispatcher(),
             )
             promoRepositorySingleton = newPromoRepository
             newPromoRepository
         }
+    }
+
+    private fun providePromoRemoteDataSource(): PromoRemoteDataSource {
+        return PromoRemoteDataSource(
+            providePromoApiService()
+        )
     }
 
     private fun providePromoLocalDataSource(): PromoLocalDataSource {
@@ -63,12 +83,18 @@ object ServiceLocator {
         return local ?: run {
             val newProductRepository = ProductRepository(
                 productLocalDataSource = provideProductLocalDataSource(),
-                productApiService = provideProductApiService(),
+                productRemoteDataSource = provideProductDataSource(),
                 coroutineDispatcher = provideIOCoroutineDispatcher(),
             )
             productRepositorySingleton = newProductRepository
             newProductRepository
         }
+    }
+
+    private fun provideProductDataSource(): ProductRemoteDataSource {
+        return ProductRemoteDataSource(
+            provideProductApiService()
+        )
     }
 
     private fun provideIOCoroutineDispatcher(): CoroutineDispatcher {

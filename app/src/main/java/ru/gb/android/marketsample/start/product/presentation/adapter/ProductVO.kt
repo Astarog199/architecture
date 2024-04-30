@@ -1,9 +1,6 @@
-package ru.gb.android.marketsample.start.presentation
+package ru.gb.android.marketsample.start.product.presentation.adapter
 
-import kotlinx.serialization.Serializable
-
-@Serializable
-data class ProductEntity (
+data class ProductVO (
     val id: String,
     val name: String,
     val image: String,

@@ -1,4 +1,4 @@
-package ru.gb.android.marketsample.start.presentation
+package ru.gb.android.marketsample.start.product.presentation
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,21 +11,22 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import ru.gb.android.marketsample.databinding.FragmentPromoBinding
+import ru.gb.android.marketsample.databinding.FragmentProductsBinding
 import ru.gb.android.marketsample.start.ServiceLocator
-import ru.gb.android.marketsample.start.presentation.adapter.PromoAdapter
+import ru.gb.android.marketsample.start.product.presentation.adapter.ProductVO
+import ru.gb.android.marketsample.start.product.presentation.adapter.ProductsAdapter
 
-class PromoFragment : Fragment() {
+class ProductsFragment : Fragment() {
 
-    private var _binding: FragmentPromoBinding? = null
+    private var _binding: FragmentProductsBinding? = null
     private val binding get() = _binding!!
 
-    private val adapter = PromoAdapter()
-    private val viewModel: PromoViewModel by viewModels(
+    private val adapter = ProductsAdapter()
+    private val viewModel: ProductsViewModel by viewModels(
         factoryProducer = { ServiceLocator.provideViewModelFactory() }
     )
 
@@ -34,7 +35,7 @@ class PromoFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentPromoBinding.inflate(inflater, container, false)
+        _binding = FragmentProductsBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -43,7 +44,6 @@ class PromoFragment : Fragment() {
 
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = LinearLayoutManager(context)
-        binding.recyclerView
 
         subscribeUI()
 
@@ -61,7 +61,7 @@ class PromoFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 launch {
-                    viewModel.items.collect { items: List<PromoEntity> ->
+                    viewModel.items.collect { items: List<ProductVO> ->
                         adapter.submitList(items)
                         showList()
                     }

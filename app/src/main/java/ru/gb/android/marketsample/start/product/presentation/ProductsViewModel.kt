@@ -1,4 +1,4 @@
-package ru.gb.android.marketsample.start.presentation
+package ru.gb.android.marketsample.start.product.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -13,16 +13,20 @@ import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
-import ru.gb.android.marketsample.start.data.repository.ProductRepository
-import ru.gb.android.marketsample.start.data.repository.PromoRepository
+import ru.gb.android.marketsample.start.product.data.ProductEntity
+import ru.gb.android.marketsample.start.product.data.repository.ProductRepository
+import ru.gb.android.marketsample.start.common.promo.data.PromoEntity
+import ru.gb.android.marketsample.start.common.promo.data.PromoRepository
+import ru.gb.android.marketsample.start.product.presentation.adapter.ProductVO
 
 class ProductsViewModel(
     private val productRepository: ProductRepository,
     private val promoRepository: PromoRepository,
+    private val productVOFactory: ProductVOFactory
 ) : ViewModel() {
 
-    private val _items = MutableStateFlow<List<ProductEntity>>(listOf())
-    val items: StateFlow<List<ProductEntity>> = _items.asStateFlow()
+    private val _items = MutableStateFlow<List<ProductVO>>(listOf())
+    val items: StateFlow<List<ProductVO>> = _items.asStateFlow()
 
     private val _isLoading = MutableStateFlow<Boolean>(false)
     val isLoading: StateFlow<Boolean> = _isLoading.asStateFlow()
@@ -46,13 +50,9 @@ class ProductsViewModel(
             }
             .map { (products, promos) ->
                 products.map { product ->
-                    val promoForProduct: PromoEntity? = promos.firstOrNull { promo ->
-                        promo.products.any { productId -> productId == product.id }
-                    }
-
-                    product.copy(
-                        hasDiscount = promoForProduct != null,
-                        discount = promoForProduct?.discount?.toInt() ?: 0
+                    productVOFactory.create(
+                        promos = promos,
+                        product = product
                     )
                 }
             }

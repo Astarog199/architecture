@@ -1,4 +1,4 @@
-package ru.gb.android.marketsample.start.data.api
+package ru.gb.android.marketsample.start.common.promo.data.api
 
 import com.google.gson.annotations.SerializedName
 

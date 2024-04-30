@@ -1,13 +1,12 @@
-package ru.gb.android.marketsample.start.presentation.adapter
+package ru.gb.android.marketsample.start.promo.presentation.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import ru.gb.android.marketsample.databinding.ItemPromoBinding
-import ru.gb.android.marketsample.start.presentation.PromoEntity
 
-class PromoAdapter : ListAdapter<PromoEntity, PromoHolder>(DiffCallback()) {
+class PromoAdapter : ListAdapter<PromoVO, PromoHolder>(DiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PromoHolder {
         return PromoHolder(
@@ -24,13 +23,13 @@ class PromoAdapter : ListAdapter<PromoEntity, PromoHolder>(DiffCallback()) {
         }
     }
 
-    private class DiffCallback : DiffUtil.ItemCallback<PromoEntity>() {
+    private class DiffCallback : DiffUtil.ItemCallback<PromoVO>() {
 
-        override fun areItemsTheSame(oldItem: PromoEntity, newItem: PromoEntity): Boolean {
+        override fun areItemsTheSame(oldItem: PromoVO, newItem: PromoVO): Boolean {
             return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: PromoEntity, newItem: PromoEntity): Boolean {
+        override fun areContentsTheSame(oldItem: PromoVO, newItem: PromoVO): Boolean {
             return oldItem == newItem
         }
     }

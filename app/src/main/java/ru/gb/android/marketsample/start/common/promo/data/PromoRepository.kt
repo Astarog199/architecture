@@ -1,4 +1,4 @@
-package ru.gb.android.marketsample.start.data.repository
+package ru.gb.android.marketsample.start.common.promo.data
 
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
@@ -6,20 +6,17 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
-import ru.gb.android.marketsample.start.data.api.PromoApiService
-import ru.gb.android.marketsample.start.presentation.PromoEntity
-import ru.gb.android.marketsample.start.data.storage.PromoLocalDataSource
 
 class PromoRepository(
     private val promoLocalDataSource: PromoLocalDataSource,
-    private val promoApiService: PromoApiService,
+    private val promoRemoteDataSource: PromoRemoteDataSource,
     private val coroutineDispatcher: CoroutineDispatcher,
 ) {
     private val scope = CoroutineScope(SupervisorJob() + coroutineDispatcher)
 
     fun consumePromos(): Flow<List<PromoEntity>> {
         scope.launch {
-            val promos = promoApiService.getPromos()
+            val promos = promoRemoteDataSource.getPromos()
             promoLocalDataSource.savePromos(
                 promos.map { promoDto ->
                     PromoEntity(

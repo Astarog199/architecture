@@ -2,14 +2,18 @@ package ru.gb.android.marketsample.start
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import ru.gb.android.marketsample.start.data.repository.ProductRepository
-import ru.gb.android.marketsample.start.data.repository.PromoRepository
-import ru.gb.android.marketsample.start.presentation.ProductsViewModel
-import ru.gb.android.marketsample.start.presentation.PromoViewModel
+import ru.gb.android.marketsample.start.product.data.repository.ProductRepository
+import ru.gb.android.marketsample.start.common.promo.data.PromoRepository
+import ru.gb.android.marketsample.start.product.presentation.ProductVOFactory
+import ru.gb.android.marketsample.start.product.presentation.ProductsViewModel
+import ru.gb.android.marketsample.start.promo.presentation.PromoVOMapper
+import ru.gb.android.marketsample.start.promo.presentation.PromoViewModel
 
 class ProductsViewModelFactory(
     private val productRepository: ProductRepository,
     private val promoRepository: PromoRepository,
+    private val promoVOMapper: PromoVOMapper,
+    private val productVOFactory: ProductVOFactory
 ) :
     ViewModelProvider.Factory {
 
@@ -20,6 +24,7 @@ class ProductsViewModelFactory(
                 return ProductsViewModel(
                     productRepository = productRepository,
                     promoRepository = promoRepository,
+                    productVOFactory = productVOFactory
                 ) as T
             }
 
@@ -27,6 +32,7 @@ class ProductsViewModelFactory(
                 @Suppress("UNCHECKED_CAST")
                 return PromoViewModel(
                     promoRepository = promoRepository,
+                    promoVOMapper = promoVOMapper
                 ) as T
             }
         }

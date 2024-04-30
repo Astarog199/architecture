@@ -1,4 +1,4 @@
-package ru.gb.android.marketsample.start.data.storage
+package ru.gb.android.marketsample.start.common.promo.data
 
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
@@ -10,7 +10,6 @@ import kotlinx.serialization.InternalSerializationApi
 import kotlinx.serialization.builtins.ListSerializer
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.serializer
-import ru.gb.android.marketsample.start.presentation.PromoEntity
 
 class PromoLocalDataSource(
     private val dataStore: DataStore<Preferences>,

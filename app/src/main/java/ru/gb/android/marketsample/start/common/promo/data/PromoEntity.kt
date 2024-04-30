@@ -1,4 +1,4 @@
-package ru.gb.android.marketsample.start.presentation
+package ru.gb.android.marketsample.start.common.promo.data
 
 import kotlinx.serialization.Serializable
 
