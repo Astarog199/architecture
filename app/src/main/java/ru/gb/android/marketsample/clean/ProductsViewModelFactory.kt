@@ -6,10 +6,14 @@ import ru.gb.android.marketsample.clean.product.domain.ConsumeProductsUseCase
 import ru.gb.android.marketsample.clean.product.presentation.ProductsViewModel
 import ru.gb.android.marketsample.clean.promo.domain.ConsumePromosUseCase
 import ru.gb.android.marketsample.clean.promo.presentation.PromoViewModel
+import ru.gb.android.marketsample.layered.features.products.presentation.ProductVOFactory
+import ru.gb.android.marketsample.layered.features.promo.presentation.PromoVOMapper
 
 class ProductsViewModelFactory(
     private val consumeProductsUseCase: ConsumeProductsUseCase,
+    private val productVOFactory: ProductVOFactory,
     private val consumePromosUseCase: ConsumePromosUseCase,
+    private val promoVOMapper: PromoVOMapper,
 ) :
     ViewModelProvider.Factory {
 
@@ -19,6 +23,7 @@ class ProductsViewModelFactory(
                 @Suppress("UNCHECKED_CAST")
                 return ProductsViewModel(
                     consumeProductsUseCase = consumeProductsUseCase,
+                    productVOFactory = productVOFactory,
                     consumePromosUseCase = consumePromosUseCase,
                 ) as T
             }
@@ -27,6 +32,7 @@ class ProductsViewModelFactory(
                 @Suppress("UNCHECKED_CAST")
                 return PromoViewModel(
                     consumePromosUseCase = consumePromosUseCase,
+                    promoVOMapper = promoVOMapper,
                 ) as T
             }
         }

@@ -19,6 +19,8 @@ import ru.gb.android.marketsample.clean.promo.data.PromoApiService
 import ru.gb.android.marketsample.clean.promo.data.PromoLocalDataSource
 import ru.gb.android.marketsample.clean.promo.data.PromoRepositoryImpl
 import ru.gb.android.marketsample.clean.promo.domain.ConsumePromosUseCase
+import ru.gb.android.marketsample.layered.ServiceLocator.provideProductVOMapper
+import ru.gb.android.marketsample.layered.ServiceLocator.providePromoVOMapper
 
 object ServiceLocator {
 
@@ -33,7 +35,10 @@ object ServiceLocator {
     fun provideViewModelFactory(): ViewModelProvider.Factory {
         return ProductsViewModelFactory(
             consumeProductsUseCase = provideConsumeProductUseCase(),
+            productVOFactory = provideProductVOMapper(),
             consumePromosUseCase = provideConsumePromosUseCase(),
+            promoVOMapper = providePromoVOMapper(),
+
         )
     }
 

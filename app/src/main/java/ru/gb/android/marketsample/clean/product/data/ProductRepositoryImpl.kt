@@ -1,22 +1,31 @@
 package ru.gb.android.marketsample.clean.product.data
 
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.launch
 
-class ProductRepositoryImpl(
-    private val productLocalDataSource: ProductLocalDataSource,
-    private val productApiService: ProductApiService,
+
+
+class ProductRepository(
+    private val productLocalDataSource: ru.gb.android.marketsample.layered.features.products.data.ProductLocalDataSource,
+    private val productRemoteDataSource: ProductRemoteDataSource,
+    private val productDataMapper: ProductDataMapper,
     private val coroutineDispatcher: CoroutineDispatcher,
 ) {
-    fun getProductLocalDataSource(): ProductLocalDataSource {
-        return productLocalDataSource
-    }
+    private val scope = CoroutineScope(SupervisorJob() + coroutineDispatcher)
 
-    fun getProductApiService(): ProductApiService {
-        return productApiService
-    }
+    fun consumeProducts(): Flow<List<ProductEntity>> {
+        scope.launch {
+            val products = productRemoteDataSource.getProducts()
+            productLocalDataSource.saveProducts(
+                products.map(productDataMapper::toEntity)
+            )
+        }
 
-    fun getProductDispatcher(): CoroutineDispatcher {
-        return coroutineDispatcher
+        return productLocalDataSource.consumeProducts()
+            .flowOn(coroutineDispatcher)
     }
-
 }

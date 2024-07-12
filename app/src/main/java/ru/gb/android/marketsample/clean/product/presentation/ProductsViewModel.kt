@@ -13,18 +13,18 @@ import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
-import ru.gb.android.marketsample.clean.promo.data.PromoEntity
-import ru.gb.android.marketsample.clean.product.data.ProductEntity
 import ru.gb.android.marketsample.clean.product.domain.ConsumeProductsUseCase
 import ru.gb.android.marketsample.clean.promo.domain.ConsumePromosUseCase
+import ru.gb.android.marketsample.layered.features.products.presentation.ProductVOFactory
 
 class ProductsViewModel(
     private val consumeProductsUseCase: ConsumeProductsUseCase,
+    private val productVOFactory: ProductVOFactory,
     private val consumePromosUseCase: ConsumePromosUseCase
 ) : ViewModel() {
 
-    private val _items = MutableStateFlow<List<ProductEntity>>(listOf())
-    val items: StateFlow<List<ProductEntity>> = _items.asStateFlow()
+    private val _items = MutableStateFlow<List<ProductVO>>(listOf())
+    val items: StateFlow<List<ProductVO>> = _items.asStateFlow()
 
     private val _isLoading = MutableStateFlow<Boolean>(false)
     val isLoading: StateFlow<Boolean> = _isLoading.asStateFlow()
@@ -42,22 +42,13 @@ class ProductsViewModel(
 
     private fun requestProducts() {
         _isLoading.value = true
-        consumeProductsUseCase.consumeProducts()
+        consumeProductsUseCase()
             .flatMapLatest { products ->
-                consumePromosUseCase.consumePromos().map { promos -> products to promos }
+                consumePromosUseCase().map { promos -> products to promos }
             }
             .map { (products, promos) ->
-                products.map { product ->
-                    val promoForProduct: PromoEntity? = promos.firstOrNull { promo ->
-                        promo.products.any { productId -> productId == product.id }
+                products.map { product ->productVOFactory.create(product, promos) }
                     }
-
-                    product.copy(
-                        hasDiscount = promoForProduct != null,
-                        discount = promoForProduct?.discount?.toInt() ?: 0
-                    )
-                }
-            }
             .onEach { productVOs ->
                 _isLoading.value = false
                 _items.value = productVOs
