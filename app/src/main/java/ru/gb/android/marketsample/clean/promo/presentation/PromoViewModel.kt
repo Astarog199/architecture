@@ -13,8 +13,6 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import ru.gb.android.marketsample.clean.promo.domain.ConsumePromosUseCase
-import ru.gb.android.marketsample.clean.promo.domain.PromoVOMapper
-
 
 
 class PromoViewModel(

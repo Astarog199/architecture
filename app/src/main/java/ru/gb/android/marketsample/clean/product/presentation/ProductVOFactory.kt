@@ -1,7 +1,8 @@
 package ru.gb.android.marketsample.clean.product.presentation
 
 import ru.gb.android.marketsample.clean.product.domain.Product
-import ru.gb.android.marketsample.layered.common.promo.domain.Promo
+import ru.gb.android.marketsample.clean.promo.domain.Promo
+
 
 class ProductVOFactory {
     fun create (product: Product, promos: List<Promo>): ProductVO{

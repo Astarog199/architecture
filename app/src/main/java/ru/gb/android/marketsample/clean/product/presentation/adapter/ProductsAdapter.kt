@@ -4,10 +4,11 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
+import ru.gb.android.marketsample.clean.product.presentation.ProductVO
 import ru.gb.android.marketsample.databinding.ItemProductBinding
-import ru.gb.android.marketsample.clean.product.data.ProductEntity
 
-class ProductsAdapter : ListAdapter<ProductEntity, ProductHolder>(DiffCallback()) {
+
+class ProductsAdapter : ListAdapter<ProductVO, ProductHolder>(DiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductHolder {
         return ProductHolder(
@@ -24,13 +25,13 @@ class ProductsAdapter : ListAdapter<ProductEntity, ProductHolder>(DiffCallback()
         }
     }
 
-    private class DiffCallback : DiffUtil.ItemCallback<ProductEntity>() {
+    private class DiffCallback : DiffUtil.ItemCallback<ProductVO>() {
 
-        override fun areItemsTheSame(oldItem: ProductEntity, newItem: ProductEntity): Boolean {
+        override fun areItemsTheSame(oldItem: ProductVO, newItem: ProductVO): Boolean {
             return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: ProductEntity, newItem: ProductEntity): Boolean {
+        override fun areContentsTheSame(oldItem: ProductVO, newItem: ProductVO): Boolean {
             return oldItem == newItem
         }
     }

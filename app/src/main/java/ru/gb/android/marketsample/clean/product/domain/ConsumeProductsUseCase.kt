@@ -2,6 +2,7 @@ package ru.gb.android.marketsample.clean.product.domain
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import ru.gb.android.marketsample.clean.product.data.ProductRepository
 
 class ConsumeProductsUseCase(
     private val productRepository: ProductRepository,
@@ -9,6 +10,6 @@ class ConsumeProductsUseCase(
 ) {
     operator fun invoke(): Flow<List<Product>> {
         return productRepository.consumeProducts()
-            .map{ products -> products.map(productDomainMapper::fromEntity) }
+            .map { products -> products.map (productDomainMapper::fromEntity) }
     }
 }

@@ -3,11 +3,11 @@ package ru.gb.android.marketsample.clean
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import ru.gb.android.marketsample.clean.product.domain.ConsumeProductsUseCase
+import ru.gb.android.marketsample.clean.product.presentation.ProductVOFactory
 import ru.gb.android.marketsample.clean.product.presentation.ProductsViewModel
 import ru.gb.android.marketsample.clean.promo.domain.ConsumePromosUseCase
+import ru.gb.android.marketsample.clean.promo.presentation.PromoVOMapper
 import ru.gb.android.marketsample.clean.promo.presentation.PromoViewModel
-import ru.gb.android.marketsample.layered.features.products.presentation.ProductVOFactory
-import ru.gb.android.marketsample.layered.features.promo.presentation.PromoVOMapper
 
 class ProductsViewModelFactory(
     private val consumeProductsUseCase: ConsumeProductsUseCase,

@@ -10,7 +10,7 @@ import kotlinx.coroutines.launch
 
 
 class ProductRepository(
-    private val productLocalDataSource: ru.gb.android.marketsample.layered.features.products.data.ProductLocalDataSource,
+    private val productLocalDataSource: ProductLocalDataSource,
     private val productRemoteDataSource: ProductRemoteDataSource,
     private val productDataMapper: ProductDataMapper,
     private val coroutineDispatcher: CoroutineDispatcher,

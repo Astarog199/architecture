@@ -1,8 +1,8 @@
 package ru.gb.android.marketsample.clean.product.domain
 
-import ru.gb.android.marketsample.layered.features.products.data.ProductDto
-import ru.gb.android.marketsample.layered.features.products.data.ProductEntity
-import ru.gb.android.marketsample.layered.features.products.domain.Product
+import ru.gb.android.marketsample.clean.product.data.ProductDto
+import ru.gb.android.marketsample.clean.product.data.ProductEntity
+
 
 class ProductDomainMapper {
     fun fromDto(productDto: ProductDto): Product {

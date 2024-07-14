@@ -1,6 +1,6 @@
-package ru.gb.android.marketsample.clean.promo.domain
+package ru.gb.android.marketsample.clean.promo.presentation
 
-import ru.gb.android.marketsample.clean.promo.presentation.PromoVO
+import ru.gb.android.marketsample.clean.promo.domain.Promo
 
 
 class PromoVOMapper {

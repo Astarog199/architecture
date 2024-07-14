@@ -17,7 +17,6 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import ru.gb.android.marketsample.databinding.FragmentProductsBinding
 import ru.gb.android.marketsample.clean.ServiceLocator
-import ru.gb.android.marketsample.clean.product.data.ProductEntity
 import ru.gb.android.marketsample.clean.product.presentation.adapter.ProductsAdapter
 
 class ProductsFragment : Fragment() {
@@ -61,7 +60,7 @@ class ProductsFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 launch {
-                    viewModel.items.collect { items: List<ProductEntity> ->
+                    viewModel.items.collect { items: List<ProductVO> ->
                         adapter.submitList(items)
                         showList()
                     }

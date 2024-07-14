@@ -15,7 +15,6 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import ru.gb.android.marketsample.clean.product.domain.ConsumeProductsUseCase
 import ru.gb.android.marketsample.clean.promo.domain.ConsumePromosUseCase
-import ru.gb.android.marketsample.layered.features.products.presentation.ProductVOFactory
 
 class ProductsViewModel(
     private val consumeProductsUseCase: ConsumeProductsUseCase,

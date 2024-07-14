@@ -17,7 +17,6 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import ru.gb.android.marketsample.databinding.FragmentPromoBinding
 import ru.gb.android.marketsample.clean.ServiceLocator
-import ru.gb.android.marketsample.clean.promo.data.PromoEntity
 import ru.gb.android.marketsample.clean.promo.presentation.adapter.PromoAdapter
 
 class PromoFragment : Fragment() {
@@ -63,7 +62,7 @@ class PromoFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 launch {
-                    viewModel.items.collect { items: List<PromoEntity> ->
+                    viewModel.items.collect { items: List<PromoVO> ->
                         adapter.submitList(items)
                         showList()
                     }

@@ -5,13 +5,13 @@ import android.view.View.VISIBLE
 import androidx.recyclerview.widget.RecyclerView
 import ru.gb.android.marketsample.databinding.ItemProductBinding
 import coil.load
-import ru.gb.android.marketsample.clean.product.data.ProductEntity
+import ru.gb.android.marketsample.clean.product.presentation.ProductVO
 
 class ProductHolder(
     private val binding: ItemProductBinding,
     ) : RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(product: ProductEntity) {
+    fun bind(product: ProductVO) {
         binding.image.load(product.image)
         binding.name.text = product.name
         binding.price.text = "${product.price} руб"
