@@ -1,6 +1,5 @@
 package ru.gb.android.marketsample.clean.product.data
 
-import ru.gb.android.marketsample.clean.product.domain.Product
 
 class ProductDataMapper {
     fun toEntity(productDto: ProductDto): ProductEntity {

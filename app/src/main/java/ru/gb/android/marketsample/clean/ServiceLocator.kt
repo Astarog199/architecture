@@ -54,8 +54,7 @@ object ServiceLocator {
 
     private fun provideConsumePromosUseCase(): ConsumePromosUseCase {
         return ConsumePromosUseCase(
-            promoRepository = providePromoRepository(),
-            promoDomainMapper = providePromoDomainMapper()
+            promoRepository = providePromoRepository()
         )
     }
 
@@ -65,8 +64,7 @@ object ServiceLocator {
 
     private fun provideConsumeProductUseCase(): ConsumeProductsUseCase {
         return ConsumeProductsUseCase(
-            productRepository = provideProductRepository(),
-            productDomainMapper = provideProductDomainMapper()
+            productRepository = provideProductRepository()
         )
     }
 
@@ -81,6 +79,7 @@ object ServiceLocator {
                 promoLocalDataSource = providePromoLocalDataSource(),
                 promoRemoteDataSource = providePromoRemoteDataSource(),
                 promoDataMapper = providePromoDataMapper(),
+                promoDomainMapper = providePromoDomainMapper(),
                 coroutineDispatcher = provideIOCoroutineDispatcher(),
             )
             promoRepositorySingleton = newPromoRepository
@@ -115,6 +114,7 @@ object ServiceLocator {
                 productLocalDataSource = provideProductLocalDataSource(),
                 productRemoteDataSource = provideProductRemoteDataSource(),
                 productDataMapper = provideProductDataMapper(),
+                productDomainMapper = provideProductDomainMapper(),
                 coroutineDispatcher = provideIOCoroutineDispatcher(),
             )
             productRepositorySingleton = newProductRepository
