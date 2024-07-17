@@ -1,7 +1,6 @@
-package ru.gb.android.marketsample.clean.product.domain
+package ru.gb.android.marketsample.clean.product.data
 
-import ru.gb.android.marketsample.clean.product.data.ProductDto
-import ru.gb.android.marketsample.clean.product.data.ProductEntity
+import ru.gb.android.marketsample.clean.product.domain.Product
 
 
 class ProductDomainMapper {

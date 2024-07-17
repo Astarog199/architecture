@@ -15,17 +15,17 @@ import ru.gb.android.marketsample.clean.product.data.ProductApiService
 import ru.gb.android.marketsample.clean.product.data.ProductDataMapper
 import ru.gb.android.marketsample.clean.product.data.ProductLocalDataSource
 import ru.gb.android.marketsample.clean.product.data.ProductRemoteDataSource
-import ru.gb.android.marketsample.clean.product.data.ProductRepository
+import ru.gb.android.marketsample.clean.product.data.ProductRepositoryImpl
 import ru.gb.android.marketsample.clean.product.domain.ConsumeProductsUseCase
-import ru.gb.android.marketsample.clean.product.domain.ProductDomainMapper
+import ru.gb.android.marketsample.clean.product.data.ProductDomainMapper
 import ru.gb.android.marketsample.clean.product.presentation.ProductVOFactory
 import ru.gb.android.marketsample.clean.promo.data.PromoApiService
 import ru.gb.android.marketsample.clean.promo.data.PromoDataMapper
 import ru.gb.android.marketsample.clean.promo.data.PromoLocalDataSource
 import ru.gb.android.marketsample.clean.promo.data.PromoRemoteDataSource
 import ru.gb.android.marketsample.clean.promo.domain.ConsumePromosUseCase
-import ru.gb.android.marketsample.clean.promo.data.PromoRepository
-import ru.gb.android.marketsample.clean.promo.domain.PromoDomainMapper
+import ru.gb.android.marketsample.clean.promo.data.PromoRepositoryImpl
+import ru.gb.android.marketsample.clean.promo.data.PromoDomainMapper
 import ru.gb.android.marketsample.clean.promo.presentation.PromoVOMapper
 
 
@@ -35,8 +35,8 @@ object ServiceLocator {
 
     lateinit var applicationContext: Context
 
-    private var productRepositorySingleton: ProductRepository? = null
-    private var promoRepositorySingleton: PromoRepository? = null
+    private var productRepositorySingleton: ProductRepositoryImpl? = null
+    private var promoRepositorySingleton: PromoRepositoryImpl? = null
     private var retrofitSingleton: Retrofit? = null
 
     fun provideViewModelFactory(): ViewModelProvider.Factory {
@@ -74,10 +74,10 @@ object ServiceLocator {
         return ProductDomainMapper()
     }
 
-    private fun providePromoRepository(): PromoRepository {
+    private fun providePromoRepository(): PromoRepositoryImpl {
         val local = promoRepositorySingleton
         return local ?: run {
-            val newPromoRepository = PromoRepository(
+            val newPromoRepository = PromoRepositoryImpl(
                 promoLocalDataSource = providePromoLocalDataSource(),
                 promoRemoteDataSource = providePromoRemoteDataSource(),
                 promoDataMapper = providePromoDataMapper(),
@@ -108,10 +108,10 @@ object ServiceLocator {
         )
     }
 
-    private fun provideProductRepository(): ProductRepository {
+    private fun provideProductRepository(): ProductRepositoryImpl {
         val local = productRepositorySingleton
         return local ?: run {
-            val newProductRepository = ProductRepository(
+            val newProductRepository = ProductRepositoryImpl(
                 productLocalDataSource = provideProductLocalDataSource(),
                 productRemoteDataSource = provideProductRemoteDataSource(),
                 productDataMapper = provideProductDataMapper(),

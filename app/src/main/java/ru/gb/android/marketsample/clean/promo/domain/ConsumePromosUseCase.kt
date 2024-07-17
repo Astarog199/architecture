@@ -2,7 +2,7 @@ package ru.gb.android.marketsample.clean.promo.domain
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import ru.gb.android.marketsample.clean.promo.data.PromoRepository
+import ru.gb.android.marketsample.clean.promo.data.PromoDomainMapper
 
 
 class ConsumePromosUseCase(

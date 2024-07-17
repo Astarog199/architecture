@@ -1,6 +1,6 @@
-package ru.gb.android.marketsample.clean.promo.domain
+package ru.gb.android.marketsample.clean.promo.data
 
-import ru.gb.android.marketsample.clean.promo.data.PromoEntity
+import ru.gb.android.marketsample.clean.promo.domain.Promo
 
 class PromoDomainMapper {
     fun fromEntity(promoEntity: PromoEntity): Promo {
